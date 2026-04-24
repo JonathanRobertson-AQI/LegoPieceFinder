@@ -1,0 +1,9 @@
+<div class="result-wrapper">
+  <canvas #canvas class="result-canvas"></canvas>
+
+  @if (result && !result.found) {
+    <p class="no-result-hint">
+      💡 Try a clearer photo, or make sure the piece is in the pile!
+    </p>
+  }
+</div>

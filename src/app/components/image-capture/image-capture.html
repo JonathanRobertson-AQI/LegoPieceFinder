@@ -1,0 +1,24 @@
+<div class="capture-wrapper">
+  @if (!preview) {
+    <button class="capture-btn" (click)="triggerCapture()" type="button">
+      <mat-icon class="camera-icon">photo_camera</mat-icon>
+      <span class="capture-label">{{ hint }}</span>
+    </button>
+  } @else {
+    <div class="preview-wrapper">
+      <img [src]="preview" alt="Captured photo" class="preview-img" />
+      <button mat-raised-button color="warn" class="retake-btn" (click)="retake()" type="button">
+        <mat-icon>refresh</mat-icon> Take Again
+      </button>
+    </div>
+  }
+
+  <input
+    #fileInput
+    type="file"
+    accept="image/*"
+    capture="environment"
+    (change)="onFileSelected($event)"
+    style="display: none"
+  />
+</div>

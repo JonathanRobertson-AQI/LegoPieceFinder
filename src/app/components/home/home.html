@@ -1,0 +1,101 @@
+<div class="home-container">
+
+  <!-- ── Step 1: Capture target piece ── -->
+  @if (step === 'capture-target') {
+    <div class="step-card">
+      <div class="step-badge">Step 1 of 2</div>
+      <h2 class="step-title">📸 Take a photo of the piece you want to find!</h2>
+      <p class="step-desc">Point your camera at the LEGO piece, or pick a photo from your album.</p>
+
+      <app-image-capture
+        hint="Tap here to take a photo!"
+        (imageCaptured)="onTargetCaptured($event)"
+      />
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="action-btn"
+        [disabled]="!targetImage"
+        (click)="goToStep2()"
+      >
+        Next Step <mat-icon iconPositionEnd>arrow_forward</mat-icon>
+      </button>
+
+      <!-- API key diagnostic -->
+      <div class="key-test-section">
+        <button mat-stroked-button class="key-test-btn" (click)="testApiKey()" [disabled]="keyTestRunning">
+          <mat-icon>wifi_protected_setup</mat-icon>
+          {{ keyTestRunning ? 'Testing...' : 'Test API Key' }}
+        </button>
+        @if (keyTestResult) {
+          <p class="key-test-result">{{ keyTestResult }}</p>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- ── Step 2: Capture collection ── -->
+  @if (step === 'capture-collection') {
+    <div class="step-card">
+      <div class="step-badge">Step 2 of 2</div>
+      <h2 class="step-title">📦 Now take a photo of your LEGO pile!</h2>
+      <p class="step-desc">Take a photo of all your LEGO bricks spread out.</p>
+
+      <app-image-capture
+        hint="Tap here to take a photo!"
+        (imageCaptured)="onCollectionCaptured($event)"
+      />
+
+      <div class="button-row">
+        <button mat-stroked-button (click)="step = 'capture-target'">
+          <mat-icon>arrow_back</mat-icon> Back
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          class="action-btn find-btn"
+          [disabled]="!collectionImage"
+          (click)="findPiece()"
+        >
+          <mat-icon>search</mat-icon> Find It!
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- ── Loading ── -->
+  @if (step === 'loading') {
+    <div class="loading-card">
+      <mat-spinner diameter="80" />
+      <h2 class="loading-title">🔍 Looking for your piece…</h2>
+      <p class="loading-desc">The AI is searching through your bricks. Hang tight!</p>
+    </div>
+  }
+
+  <!-- ── Result ── -->
+  @if (step === 'result' && result && collectionImage) {
+    <div class="result-card">
+      @if (result.found) {
+        <div class="banner banner--found">🎉 Found it! Look for the yellow box!</div>
+      } @else {
+        <div class="banner banner--not-found">😕 Couldn't find it in the pile</div>
+      }
+
+      @if (errorMessage) {
+        <p class="error-msg">⚠️ {{ errorMessage }}</p>
+      }
+
+      <app-result-display
+        [collectionImageBase64]="collectionImage.base64"
+        [collectionMimeType]="collectionImage.mimeType"
+        [result]="result"
+      />
+
+      <button mat-raised-button color="primary" class="action-btn restart-btn" (click)="startOver()">
+        <mat-icon>refresh</mat-icon> Start Over
+      </button>
+    </div>
+  }
+
+</div>

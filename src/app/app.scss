@@ -1,0 +1,36 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #DA291C 0%, #FF6B35 100%);
+  padding: 12px 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  flex-shrink: 0;
+}
+
+.app-title {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #FFD700;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  letter-spacing: 0.02em;
+}
+
+.lego-brick {
+  font-size: 1.6rem;
+}
+
+main {
+  flex: 1;
+  overflow-y: auto;
+  background: #f5f5f5;
+}

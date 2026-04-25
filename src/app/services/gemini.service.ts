@@ -9,19 +9,25 @@ export interface GeminiResult {
   message?: string;
 }
 
-const PROMPT = `You are a LEGO piece identification assistant.
-Image 1 shows a specific LEGO piece to find.
-Image 2 shows a collection or pile of LEGO pieces.
+const PROMPT = `You are an expert LEGO piece identification assistant with deep knowledge of LEGO parts.
 
-Find the LEGO piece from Image 1 inside the pile in Image 2.
+Image 1 is the TARGET: a specific LEGO piece the user wants to find. Study it carefully:
+- Exact color (be precise: e.g. "bright red", "dark bluish gray", not just "gray")
+- Shape and form (brick, plate, slope, technic, tile, etc.)
+- Stud count and arrangement (e.g. 2x4, 1x2, 2x2 round)
+- Any unique features (clips, holes, slopes, curves, hinges, etc.)
+- Approximate size relative to other pieces
+
+Image 2 is the COLLECTION: a pile or group of many LEGO pieces. Search it thoroughly for a piece that EXACTLY matches ALL the characteristics you identified from Image 1. Do not settle for a similar piece — it must be the same color, shape, and size.
+
 Respond with ONLY a valid JSON object -- no markdown, no extra text.
 
-If found:
+If an exact match is found:
 {"found": true, "box": [ymin, xmin, ymax, xmax]}
 
-Coordinates are integers 0-1000 (normalized to image dimensions).
+Coordinates are integers 0-1000 (normalized to image dimensions). Make the bounding box tight around the matching piece only.
 
-If not found:
+If no exact match exists in Image 2:
 {"found": false, "box": null}`;
 
 const MODEL = 'gemini-2.5-flash';

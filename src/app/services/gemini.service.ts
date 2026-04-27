@@ -18,11 +18,11 @@ Image 1 is the TARGET: a specific LEGO piece the user wants to find. Study it ca
 - Any unique features (clips, holes, slopes, curves, hinges, etc.)
 - Approximate size relative to other pieces
 
-Image 2 is the COLLECTION: a pile or group of many LEGO pieces. Search it thoroughly for a piece that EXACTLY matches ALL the characteristics you identified from Image 1. Do not settle for a similar piece — it must be the same color, shape, and size.
+Image 2 is the COLLECTION: a pile or group of many LEGO pieces. Search it thoroughly for a piece that matches the characteristics you identified from Image 1 - stud count, color, shape, and size.  If more than one piece matches, look for the one that is the closest match in stud count, color, size, and shape.  Remember that the piece may have turned or shifted from the original picture.  Also, lighting and background may be diferent.
 
 Respond with ONLY a valid JSON object -- no markdown, no extra text.
 
-If an exact match is found:
+If a match is found:
 {"found": true, "box": [ymin, xmin, ymax, xmax]}
 
 Coordinates are integers 0-1000 (normalized to image dimensions). Make the bounding box tight around the matching piece only.
